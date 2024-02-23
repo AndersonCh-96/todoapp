@@ -21,24 +21,31 @@
     </button>
   </div>
   <div>
-    <ul class="mt-4">
-      @for (item of data(); track item.id ; let i = $index) { @if (item.editing)
+    <ul class="mt-4 mb-2">
+      @for (item of filtra(); track item.id ; let i = $index) { @if (item.editing)
       {
       <input
+        (keydown.enter)="updatedate(i, $event)"
         type="text"
-        class="text-black"
-        placeholder="{{ item.title }}"
+        class="text-blue-700 flex p-2 mb-2"
+        placeholder="Editar"
+        [value]="item.title"
         id=""
       />
       }@else {
       <li class="flex">
-        <input type="checkbox" />
+        <input type="checkbox" [checked]="item.complete" (click)="toogle(i)" />
         <label for="">{{ item.title }} </label>
+        @if (!item.complete) {
+        <button class="rounded-md bg-blue-400" (click)="edit(i)">Edit</button>}
+
         <button class="bg-red-500 rounded-md" (click)="deleteTask(i)">
           Delete
         </button>
       </li>
-      } }
+      } }@empty {
+        <p class="mt-4">No tiene tareas pendientes</p>
+      }
     </ul>
   </div>
 </section>
