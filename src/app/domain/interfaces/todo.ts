@@ -1,8 +1,8 @@
 export interface Todo {
-  id: number;
+  id: number | null |Date;
   title: string;
   complete: boolean;
-  editing: boolean;
+  editing?: boolean;
 }
 
 export type filterType = 'all' | 'active' | 'complete';
